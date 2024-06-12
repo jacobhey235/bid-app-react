@@ -1,10 +1,60 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './ProductList.css';
+import ProductItem from "../ProductItem/ProductItem";
+import {useTelegram} from "../../hooks/useTelegram";
+
+const products = [
+    {id: '1', title: 'Брюки', price: 6500, description: 'Серого цвета, прямые'},
+    {id: '2', title: 'Шорты', price: 3000, description: 'Синего цвета, с карманами'},
+    {id: '3', title: 'Юбка', price: 4200, description: 'Красного цвета в крапинку'},
+    {id: '4', title: 'Пальто', price: 5000, description: 'Шерстяное, на пуговицах'},
+    {id: '5', title: 'Куртка', price: 7000, description: 'Джинсовая, длинная'},
+    {id: '6', title: 'Носки', price: 1000, description: 'Чёрные, короткие'},
+    {id: '7', title: 'Свитер', price: 8000, description: 'Синий, шерстяной'},
+    {id: '8', title: 'Кофта', price: 6500, description: 'Голубая, кашемировая'}
+]
+
+const getTotalPrice = (items) => {
+    return items.reduce((acc, item) => {
+        return acc += item.price
+    }, 0)
+}
 
 const ProductList = () => {
+
+    const [addedItems, setAddedItems] = useState([]);
+    const {tg} = useTelegram();
+    const onAdd = (product) => {
+        const alreadyAdded = addedItems.find(item => item.id === product.id);
+        let newItems = [];
+
+        if(alreadyAdded) {
+            newItems = addedItems.filter(item => item.id !== product.id);
+        } else {
+            newItems = [...addedItems, product];
+        }
+
+        setAddedItems(newItems)
+
+        if(newItems.length === 0) {
+            tg.MainButton.hide();
+        } else {
+            tg.MainButton.show()
+            tg.MainButton.setParams({
+                text: `Купить ${getTotalPrice(newItems)}`
+            })
+        }
+    }
+
     return (
-        <div>
-            ProductList
+        <div className={'list'}>
+            {products.map(item => (
+                <ProductItem
+                    product={item}
+                    onAdd={onAdd}
+                    className={'item'}
+                />
+            ))}
         </div>
     );
 };
