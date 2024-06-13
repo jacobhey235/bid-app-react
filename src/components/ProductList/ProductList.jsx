@@ -5,9 +5,9 @@ import {useTelegram} from "../../hooks/useTelegram";
 
 const products = [
     {id: '1', title: 'Брюки', price: 6500, description: 'Серого цвета, прямые'},
-    {id: '2', title: 'Шорты', price: 3000, description: 'Синего цвета, с карманами'},
-    {id: '3', title: 'Юбка', price: 4200, description: 'Красного цвета в крапинку'},
-    {id: '4', title: 'Пальто', price: 5000, description: 'Шерстяное, на пуговицах'},
+    {id: '2', title: 'Шорты', price: 3000, description: 'Синего цвета, тёплые'},
+    {id: '3', title: 'Юбка', price: 4200, description: 'Красного цвета, длинная'},
+    {id: '4', title: 'Пальто', price: 5000, description: 'Серое, тёплое'},
     {id: '5', title: 'Куртка', price: 7000, description: 'Джинсовая, длинная'},
     {id: '6', title: 'Носки', price: 1000, description: 'Чёрные, короткие'},
     {id: '7', title: 'Свитер', price: 8000, description: 'Синий, шерстяной'},
